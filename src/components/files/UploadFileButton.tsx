@@ -1,7 +1,7 @@
 import {
   Button,
 } from '@mui/material';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
+import UploadIcon from '@mui/icons-material/Upload';
 import React from 'react';
 
 export default function UploadFileButton(
@@ -22,7 +22,8 @@ export default function UploadFileButton(
   return <Button
     variant='contained'
     component='label'
-    startIcon={<UploadFileIcon />}
+    startIcon={<UploadIcon />}
+    sx={{width: 120}}
   >
     Upload
     <input

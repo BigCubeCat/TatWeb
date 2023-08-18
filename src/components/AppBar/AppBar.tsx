@@ -5,6 +5,7 @@ import {useState} from "react";
 
 import ControlComponent from '@/components/AppBar/ControllComponent.tsx';
 import UploadFileButton from '@/components/files/UploadFileButton.tsx';
+import DownloadFileButton from '@/components/files/DownloadFileButton.tsx';
 
 export default function AppBar() {
   const navStyle = {
@@ -30,7 +31,7 @@ export default function AppBar() {
     </Box>
     <Box sx={{width: 'max-content'}}></Box>
     <UploadFileButton setState={setState} />
-    <Typography sx={{color: "pink"}}>{state}</Typography>
+    <DownloadFileButton data={{data: state}} filename={"test.json"} />
     <ControlComponent />
   </Box>;
 }
