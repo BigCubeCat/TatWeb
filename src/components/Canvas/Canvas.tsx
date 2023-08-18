@@ -1,29 +1,15 @@
-import {useCallback, useMemo, useState} from 'react';
-import {ForceGraph2D as ForceGraph} from 'react-force-graph';
+import {
+  useCallback, useMemo, useState, useEffect, useRef,
+} from 'react';
+import {ForceGraph2D} from 'react-force-graph';
+import {RECT} from '@/components/Canvas/const.ts';
+import {TLink, TNode} from '@/components/Canvas/types.ts';
+import {renderNode} from '@/components/Canvas/CanvasNode.ts';
+import genRandomTree from '@/components/Canvas/utils.ts';
 
-import {TLink, TNode, TTree} from '@/components/Canvas/types.ts';
 
-function genRandomTree(N = 300): TTree {
-  const nodes: TNode[] = [...Array(N).keys()].map((i) => ({
-    id: i,
-    neighbors: [],
-    links: [],
-    value: Math.round(Math.random() * 10)
-  }));
-  const links: TLink[] = [...Array(N).keys()]
-    .filter((id) => id)
-    .map((id) => ({
-      target: id,
-      source: Math.round(Math.random() * (id - 1)),
-      value: 0,
-    }));
-  return {
-    nodes, links,
-  };
-}
-
-const NODE_R = 8;
 const Canvas = () => {
+  const fgRef = useRef();
   const data = useMemo(() => {
     const gData = genRandomTree(10);
 
@@ -80,37 +66,34 @@ const Canvas = () => {
     updateHighlight();
   };
 
-  const paintRing = useCallback(
-    (node: any, ctx: CanvasRenderingContext2D) => {
-      // add ring just for highlighted nodes
-      ctx.beginPath();
-      ctx.arc(node.x, node.y, NODE_R * 1.4, 0, 2 * Math.PI, false);
-      ctx.fillStyle = node === hoverNode ? 'red' : 'orange';
-      // setup text
-      ctx.font = '20px Sans-Serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(hoverNode ? "" + hoverNode?.value : "", node.x, node.y - 20);
 
-      ctx.fill();
-    },
-    [hoverNode],
+  useEffect(() => {
+    const fg = fgRef.current;
+    // @ts-ignore
+    fg.d3Force('link').distance(RECT.width * 4);
+  });
+
+  const paintNode = useCallback(
+    renderNode, [hoverNode],
   );
 
   return (
-    <ForceGraph
+    <ForceGraph2D
+      ref={fgRef}
       graphData={data}
-      nodeRelSize={NODE_R}
+      nodeRelSize={(RECT.width + RECT.height) / 2}
       autoPauseRedraw={false}
 
-      linkWidth={5}
-      linkDirectionalParticles={4}
-      linkDirectionalParticleWidth={4}
+      backgroundColor='#E7E7E7'
+      linkCurvature='curvature'
 
-      nodeCanvasObjectMode={(node) =>
-        highlightNodes.has(node) ? 'before' : undefined
-      }
-      nodeCanvasObject={paintRing}
+      linkWidth={10}
+      linkDirectionalParticles={link => link.value}
+      linkDirectionalParticleWidth={8}
+
+      nodeCanvasObject={(node, ctx) => paintNode({
+        highlightLvl: (hoverNode === node) ? 2 : (highlightNodes.has(node)) ? 1 : 0,
+      }, node, ctx)}
       // handle events
       onNodeHover={handleNodeHover}
       onLinkHover={handleLinkHover}
