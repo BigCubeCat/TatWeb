@@ -1,0 +1,1 @@
+export type StationType = "dns" | "finish"

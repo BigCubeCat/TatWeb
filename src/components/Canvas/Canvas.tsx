@@ -5,29 +5,14 @@ import {ForceGraph2D} from 'react-force-graph';
 import {CONFIG, RECT} from '@/components/Canvas/const.ts';
 import {TLink, TNode} from '@/components/Canvas/types.ts';
 import {renderNode} from '@/components/Canvas/CanvasNode.ts';
-import genRandomTree from '@/components/Canvas/utils.ts';
+import {genRandomTree, normalizeData} from '@/components/Canvas/utils.ts';
 
 
 const Canvas = () => {
   const fgRef = useRef();
   const data = useMemo(() => {
     const gData = genRandomTree(10);
-
-    // cross-link node objects
-    gData.links.forEach((link: TLink) => {
-      const a = gData.nodes[link.source];
-      const b = gData.nodes[link.target];
-      !a.neighbors && (a.neighbors = []);
-      !b.neighbors && (b.neighbors = []);
-      a.neighbors.push(b);
-      b.neighbors.push(a);
-
-      !a.links && (a.links = []);
-      !b.links && (b.links = []);
-      a.links.push(link);
-      b.links.push(link);
-    });
-
+    normalizeData(gData)
     return gData;
   }, []);
 
@@ -70,7 +55,7 @@ const Canvas = () => {
   useEffect(() => {
     const fg = fgRef.current;
     // @ts-ignore
-    fg.d3Force('link').distance(RECT.width * 4);
+    fg.d3Force('link').distance(CONFIG.graph.distance);
   });
 
   const paintNode = useCallback(
@@ -85,11 +70,10 @@ const Canvas = () => {
       autoPauseRedraw={false}
 
       backgroundColor={CONFIG.theme.bgColor}
-      linkCurvature='curvature'
 
-      linkWidth={10}
+      linkWidth={CONFIG.graph.linkWidth}
       linkDirectionalParticles={link => link.value}
-      linkDirectionalParticleWidth={8}
+      linkDirectionalParticleWidth={CONFIG.graph.linkDirectionalParticleWidth}
 
       nodeCanvasObject={(node, ctx) => paintNode({
         highlightLvl: (hoverNode === node) ? 2 : (highlightNodes.has(node)) ? 1 : 0,
