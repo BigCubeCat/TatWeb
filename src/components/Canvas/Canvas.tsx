@@ -2,7 +2,7 @@ import {
   useCallback, useMemo, useState, useEffect, useRef,
 } from 'react';
 import {ForceGraph2D} from 'react-force-graph';
-import {RECT} from '@/components/Canvas/const.ts';
+import {CONFIG, RECT} from '@/components/Canvas/const.ts';
 import {TLink, TNode} from '@/components/Canvas/types.ts';
 import {renderNode} from '@/components/Canvas/CanvasNode.ts';
 import genRandomTree from '@/components/Canvas/utils.ts';
@@ -84,7 +84,7 @@ const Canvas = () => {
       nodeRelSize={(RECT.width + RECT.height) / 2}
       autoPauseRedraw={false}
 
-      backgroundColor='#E7E7E7'
+      backgroundColor={CONFIG.theme.bgColor}
       linkCurvature='curvature'
 
       linkWidth={10}
