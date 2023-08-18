@@ -2,6 +2,7 @@ import {
   useCallback, useMemo, useState, useEffect, useRef,
 } from 'react';
 import {ForceGraph2D} from 'react-force-graph';
+
 import {CONFIG, RECT} from '@/components/Canvas/const.ts';
 import {TLink, TNode} from '@/components/Canvas/types.ts';
 import {renderNode} from '@/components/Canvas/CanvasNode.ts';
@@ -77,6 +78,7 @@ const Canvas = () => {
 
       nodeCanvasObject={(node, ctx) => paintNode({
         highlightLvl: (hoverNode === node) ? 2 : (highlightNodes.has(node)) ? 1 : 0,
+        node: data.nodes[node.id],
       }, node, ctx)}
       // handle events
       onNodeHover={handleNodeHover}

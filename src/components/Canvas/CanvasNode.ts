@@ -1,5 +1,6 @@
 import {CONFIG, RECT} from '@/components/Canvas/const.ts';
 import {NodeObject} from 'react-force-graph-2d';
+import {TNode} from '@/components/Canvas/types.ts';
 
 const paintRing = (isMainNode: boolean, node: NodeObject, ctx: CanvasRenderingContext2D) => {
   // add ring just for highlighted nodes
@@ -42,6 +43,7 @@ const paintNode = (node: NodeObject, color: string, ctx: CanvasRenderingContext2
 
 interface IRenderNodeConf {
   highlightLvl: number;
+  node: TNode;
 }
 
 const renderNode = (renderConf: IRenderNodeConf, node: NodeObject, ctx: CanvasRenderingContext2D) => {
@@ -51,7 +53,7 @@ const renderNode = (renderConf: IRenderNodeConf, node: NodeObject, ctx: CanvasRe
   if (renderConf.highlightLvl > 0) {
     paintRing(renderConf.highlightLvl == 2, node, ctx);
   }
-  paintText(node, '' + node.id, CONFIG.theme.textColor, ctx);
+  paintText(node, renderConf.node.value.title, CONFIG.theme.textColor, ctx);
   ctx.fill();
 };
 export {renderNode, paintRing};
