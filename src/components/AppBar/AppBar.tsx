@@ -1,10 +1,8 @@
 import {
-  Box, Button, Typography,
+  Box, Button,
 } from '@mui/material';
 
 import ControlComponent from '@/components/AppBar/ControllComponent.tsx';
-import UploadFileButton from '@/components/files/UploadFileButton.tsx';
-import DownloadFileButton from '@/components/files/DownloadFileButton.tsx';
 
 export default function AppBar() {
   const navStyle = {
