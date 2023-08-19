@@ -193,30 +193,6 @@
         "input": 0,
         "output": 0
       }
-    },
-    {
-      "id": 16,
-      "dnsId": -1,
-      "title": "",
-      "type": "node",
-      "status": {
-        "size": 0,
-        "content": 0,
-        "input": 0,
-        "output": 0
-      }
-    },
-    {
-      "id": 17,
-      "dnsId": -1,
-      "title": "",
-      "type": "node",
-      "status": {
-        "size": 0,
-        "content": 0,
-        "input": 0,
-        "output": 0
-      }
     }
   ],
   "links": [

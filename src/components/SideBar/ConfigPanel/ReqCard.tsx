@@ -1,7 +1,7 @@
 import { Box, Card, Typography } from '@mui/material';
 
 import UploadFileButton from '@/components/files/UploadFileButton.tsx';
-import { setTopoFile } from '@/store/confSlice/configStore.ts';
+import {setReqsFile} from '@/store/confSlice/configStore.ts';
 import DownloadFileButton from '@/components/files/DownloadFileButton.tsx';
 import { useAppDispatch, useAppSelector } from '@/store/hooks.ts';
 import { selectGraphSlice } from '@/store/graphSlice/graphStore.ts';
@@ -36,7 +36,7 @@ export default function ReqCard() {
         }}
       >
         <UploadFileButton
-          setState={fileContent => dispatch(setTopoFile(fileContent))}
+          setState={fileContent => dispatch(setReqsFile(fileContent))}
         />
         <DownloadFileButton
           data={reqs} filename={'requests.json'}

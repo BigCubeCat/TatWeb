@@ -2,21 +2,6 @@ import {CONFIG, RECT} from '@/components/Canvas/const.ts';
 import {NodeObject} from 'react-force-graph-2d';
 import {TNode} from '@/components/Canvas/types.ts';
 
-const paintRing = (
-  isMainNode: boolean,
-  node: NodeObject,
-  ctx: CanvasRenderingContext2D,
-) => {
-  // add ring just for highlighted nodes
-  ctx.beginPath();
-  paintBox(
-    node,
-    isMainNode ? CONFIG.theme.primaryColor : CONFIG.theme.secondaryColor,
-    ctx,
-  );
-  ctx.fill();
-};
-
 const paintBox = (
   node: NodeObject,
   color: string,
@@ -51,12 +36,24 @@ const paintText = (
   ctx.fillText(text, node.x || 0, node.y || 0);
 };
 
+const paintConnection = (x: number, y: number, color: string, ctx: CanvasRenderingContext2D) => {
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(x, y, 3, 0, 2 * Math.PI, false);
+  ctx.fill();
+};
+
 const paintNode = (
   node: NodeObject,
+  nodeObject: TNode,
   color: string,
   ctx: CanvasRenderingContext2D,
 ) => {
-  paintBox(node, color, ctx);
+  if (nodeObject.value.type !== 'node') {
+    paintBox(node, color, ctx);
+  } else {
+    paintConnection(Number(node.x), Number(node.y), color, ctx);
+  }
 };
 
 interface IRenderNodeConf {
@@ -71,10 +68,7 @@ const renderNode = (
 ) => {
   // add ring just for highlighted nodes
   ctx.beginPath();
-  paintNode(node, CONFIG.theme.mainColor, ctx);
-  if (renderConf.highlightLvl > 0) {
-    paintRing(renderConf.highlightLvl == 2, node, ctx);
-  }
+  paintNode(node, renderConf.node, CONFIG.theme.mainColor, ctx);
   paintText(node, renderConf.node.value.title, CONFIG.theme.textColor, ctx);
   ctx.fill();
 };

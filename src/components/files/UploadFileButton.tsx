@@ -11,7 +11,6 @@ export default function UploadFileButton(props: {
     const reader = new FileReader();
     reader.onload = async (e) => {
       const text = '' + e.target?.result;
-      console.log(text);
       props.setState(text);
     };
     const files = e.target.files || new FileList();

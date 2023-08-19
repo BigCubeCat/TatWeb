@@ -15,9 +15,9 @@ export default function HookPanel() {
       {store.selectedNodeId >= 0 && (
         <HookCard
           dnsId={store.selectedNodeId}
-          value={store.engine.hooks[store.selectedNodeId].count}
+          value={store.engine.hooks[store.selectedNodeId]?.count}
           sign={'>'}
-          output={store.engine.hooks[store.selectedNodeId].output}
+          output={store.engine.hooks[store.selectedNodeId]?.output}
         />
       )}
     </Box>

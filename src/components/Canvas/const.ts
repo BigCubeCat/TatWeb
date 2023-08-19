@@ -13,8 +13,8 @@ export const CONFIG = {
     secondaryColor: 'orange',
   },
   graph: {
-    linkWidth: 10,
-    linkDirectionalParticleWidth: 8,
-    distance: 200,
+    linkWidth: 8,
+    linkDirectionalParticleWidth: 4,
+    distance: 50,
   },
 };

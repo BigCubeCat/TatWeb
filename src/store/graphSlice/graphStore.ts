@@ -26,6 +26,11 @@ export const graphSlice = createSlice({
   reducers: {
     setSelected: (state, action: PayloadAction<number>) => {
       state.selectedNodeId = action.payload;
+      if (!state.engine.hooks[state.selectedNodeId]) {
+        state.engine.hooks[state.selectedNodeId] = {
+          listenId: state.selectedNodeId, interval: 0, count: 0, output: 0, sign: '>',
+        };
+      }
     },
     setHook: (state, action: PayloadAction<{id: number; hook: THook}>) => {
       state.engine.hooks[action.payload.id] = action.payload.hook;
@@ -48,6 +53,7 @@ export const graphSlice = createSlice({
       state.reqs.forEach((req) => {
         updateEngine(state.engine, req);
       });
+      console.log(state.engine, state.reqs)
     },
   },
 });

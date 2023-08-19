@@ -2,28 +2,23 @@ import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {ForceGraph2D} from 'react-force-graph';
 
 import {CONFIG, RECT} from '@/components/Canvas/const.ts';
-import {
-  generateTLink,
-  generateTNode,
-  TLink,
-  TNode,
-} from '@/components/Canvas/types.ts';
+import {TLink, TNode} from '@/components/Canvas/types.ts';
 import {renderNode} from '@/components/Canvas/CanvasNode.ts';
-import {normalizeData} from '@/components/Canvas/utils.ts';
+import {normalizeData, generateTNode, generateTLink} from '@/components/Canvas/utils.ts';
 import {useAppDispatch, useAppSelector} from '@/store/hooks.ts';
 import {selectGraphSlice, setSelected} from '@/store/graphSlice/graphStore.ts';
 
 const Canvas = () => {
   const dispatch = useAppDispatch();
-  const engine = useAppSelector(selectGraphSlice).engine;
+  const engineTree = useAppSelector(selectGraphSlice).engine.tree;
 
   const fgRef = useRef();
   const data = useMemo(() => {
     return normalizeData({
-      nodes: engine.tree.nodes.map((node) => generateTNode(node)),
-      links: engine.tree.links.map((link) => generateTLink(link)),
+      nodes: engineTree.nodes.map((node) => generateTNode(node)),
+      links: engineTree.links.map((link) => generateTLink(link)),
     });
-  }, [engine.tree]);
+  }, [engineTree]);
 
   const [highlightNodes, setHighlightNodes] = useState(new Set());
   const [highlightLinks, setHighlightLinks] = useState(new Set());
