@@ -8,8 +8,15 @@ export function genRandomTree(N = 300): TTree {
       neighbors: [],
       links: [],
       value: {
+        id: i,
         type: !i ? 'finish' : 'dns',
         title: 'ДНС-' + i,
+        status: {
+          size: 0,
+          content: 0,
+          input: 0,
+          output: 0,
+        },
       },
     });
   }

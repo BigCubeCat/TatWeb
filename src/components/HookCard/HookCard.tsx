@@ -17,7 +17,7 @@ interface IProps {
 export default function HookCard(props: IProps) {
   const dispatch = useAppDispatch();
 
-  const [sign, setSign] = useState<'>' | '<' | '~'>(props.sign);
+  const [sign, setSign] = useState<string>(props.sign);
   const [value, setValue] = useState(0);
   const [output, setOutput] = useState(0);
   const [interval, setInt] = useState(0);
@@ -39,7 +39,7 @@ export default function HookCard(props: IProps) {
       id: props.dnsId,
       hook: {
         listenId: props.dnsId,
-        sign: sign,
+        sign: sign as ('<' | '>' | '~'),
         count: value,
         output: output,
         interval: interval,

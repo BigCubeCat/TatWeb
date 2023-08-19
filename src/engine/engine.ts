@@ -1,5 +1,4 @@
 import {THook, TopoLink, TopoNode} from '@/engine/types.ts';
-import * as wasm from "@/pkg/todo_wasm"
 
 export default class Engine {
   nodes: TopoNode[];
