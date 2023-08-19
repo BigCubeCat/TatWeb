@@ -1,0 +1,329 @@
+{
+  "nodes": [
+    {
+      "id": 0,
+      "dnsId": 0,
+      "title": "ТП",
+      "type": "finish",
+      "status": {
+        "size": 100000000,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 1,
+      "dnsId": 1,
+      "title": "ДНС-1",
+      "type": "dns",
+      "status": {
+        "size": 100,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 2,
+      "dnsId": 2,
+      "title": "ДНС-2",
+      "type": "dns",
+      "status": {
+        "size": 100,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 3,
+      "dnsId": 3,
+      "title": "ДНС-3",
+      "type": "dns",
+      "status": {
+        "size": 100,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 4,
+      "dnsId": 4,
+      "title": "ДНС-4",
+      "type": "dns",
+      "status": {
+        "size": 100,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 5,
+      "dnsId": 5,
+      "title": "ДНС-5",
+      "type": "dns",
+      "status": {
+        "size": 100,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 6,
+      "dnsId": 6,
+      "title": "ДНС-6",
+      "type": "dns",
+      "status": {
+        "size": 100,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    }
+  ],
+  "joins": [
+    {
+      "id": 7,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 8,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 9,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 10,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 11,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 12,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 13,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 14,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 15,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 16,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    },
+    {
+      "id": 17,
+      "dnsId": -1,
+      "title": "",
+      "type": "node",
+      "status": {
+        "size": 0,
+        "content": 0,
+        "input": 0,
+        "output": 0
+      }
+    }
+  ],
+  "links": [
+    {
+      "from": 1,
+      "to": 7,
+      "d": 325,
+      "length": 1235,
+      "bandwidth": 0
+    },
+    {
+      "from": 7,
+      "to": 4,
+      "d": 159,
+      "length": 3080,
+      "bandwidth": 0
+    },
+    {
+      "from": 2,
+      "to": 8,
+      "d": 159,
+      "length": 5926,
+      "bandwidth": 0
+    },
+    {
+      "from": 8,
+      "to": 9,
+      "d": 219,
+      "length": 1000,
+      "bandwidth": 0
+    },
+    {
+      "from": 9,
+      "to": 10,
+      "d": 273,
+      "length": 123,
+      "bandwidth": 0
+    },
+    {
+      "from": 10,
+      "to": 4,
+      "d": 377,
+      "length": 1151,
+      "bandwidth": 0
+    },
+    {
+      "from": 6,
+      "to": 0,
+      "d": 273,
+      "length": 6106,
+      "bandwidth": 0
+    },
+    {
+      "from": 5,
+      "to": 11,
+      "d": 159,
+      "length": 1947,
+      "bandwidth": 0
+    },
+    {
+      "from": 11,
+      "to": 12,
+      "d": 219,
+      "length": 4464,
+      "bandwidth": 0
+    },
+    {
+      "from": 12,
+      "to": 13,
+      "d": 426,
+      "length": 1384,
+      "bandwidth": 0
+    },
+    {
+      "from": 13,
+      "to": 0,
+      "d": 219,
+      "length": 136,
+      "bandwidth": 0
+    },
+    {
+      "from": 4,
+      "to": 14,
+      "d": 159,
+      "length": 2060,
+      "bandwidth": 0
+    },
+    {
+      "from": 14,
+      "to": 15,
+      "d": 219,
+      "length": 275,
+      "bandwidth": 0
+    },
+    {
+      "from": 3,
+      "to": 15,
+      "d": 219,
+      "length": 1077,
+      "bandwidth": 0
+    },
+    {
+      "from": 15,
+      "to": 0,
+      "d": 273,
+      "length": 7747,
+      "bandwidth": 0
+    }
+  ]
+}

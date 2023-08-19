@@ -1,84 +1,44 @@
-import {THook, TopoLink, TopoNode} from '@/engine/types.ts';
+import {TEngine, TopoLink, TopoNode, TRequest} from '@/engine/types.ts';
 
-export default class Engine {
-  nodes: TopoNode[];
-  links: TopoLink[];
-  hooks: THook[];
-  history: TopoNode[][];
-  tp: object;
+export const readEngine = (data: string): TEngine => {
+  const obj: {nodes: TopoNode[], joins: TopoNode[], links: TopoLink[]} = JSON.parse(data);
+  const links: TopoLink[] = obj.links.map(link => {
+    return {...link, bandwidth: link.length * link.d * 0.63};
+  });
+  return {
+    tree: {
+      nodes: [...obj.nodes, ...obj.joins],
+      links:links
+    },
+    history: [],
+    hooks: [],
+    broken: []
+  };
+};
 
-  constructor(nodes: TopoNode[], links: TopoLink[], hooks: THook[]) {
-    this.nodes = nodes;
-    this.links = links;
-    this.hooks = [];
-    this.history = [];
-    hooks.forEach(hook => this.hooks[hook.listenId] = hook);
+const getCurrentLinks = (eng: TEngine, ids: number[]) => {
+  return eng.tree.links.filter(link => ids.includes(link.from));
+};
 
-    this.tp = {
-      capacity: {
-        value: 20, filled: 10
-      },
-      incoming_dnses: [
-        {
-          id: 1,
-          capacity: {
-            value: 10, filled: 3
-          },
-          incoming_dnses: [],
-          out_pipes: [
-            {
-              capacity: {
-                value: 7,
-                filled: 0
-              }
-            }
-          ]
-        }
-      ]
-    }
-  }
+export const updateEngine = (eng: TEngine, req: TRequest) => {
+  // Загружаем наальные данные
+  req.enters.forEach((enter, index) => {
+    eng.tree.nodes[enter].status.input = req.loaded[index];
+  });
 
-  Update() {
-    this.history.push([...this.nodes]);
-    // use Hooks
-    const freeForBalance = this.useHooks();
-    console.log(freeForBalance)
-    // check simulation
-    // if overload, balance:
-
-  }
-
-  useHooks() {
-    const freeForBalance: TopoNode[] = [];
-    this.nodes.forEach((node, index) => {
-      const hook = this.hooks[node.id];
-      if (hook.listenId === index) {
-//        hook.callback(node.status);
-      } else {
-        freeForBalance.push(node);
-      }
+  let currentNodes: number[] = req.enters.map(enter => eng.tree.nodes[enter].id);
+  while (currentNodes.length > 0) {
+    const newNodes: number[] = [];
+    // Перекачка
+    const links = getCurrentLinks(eng, currentNodes);
+    links.forEach(link => {
+      // Посчитать, сколько мы отправим в действительности
+      eng.tree.nodes[link.to].status.input = Math.min(
+        link.bandwidth,
+        0
+      );
+      newNodes.push(link.to);
     });
-    return freeForBalance;
+    currentNodes = newNodes;
   }
-
-  addHook(hook: THook) {
-    this.hooks.push(hook);
-  }
-
-  setHooks(hooks: THook[]) {
-    this.hooks = hooks;
-  }
-
-  Load(props: {nodes: TopoNode[], links: TopoLink[], hooks: THook[]}) {
-    this.nodes = props.nodes;
-    this.links = props.links;
-    this.hooks = props.hooks;
-  }
-
-  Save() {
-    return {
-      nodes: this.nodes,
-      links: this.links,
-    };
-  }
-}
+};

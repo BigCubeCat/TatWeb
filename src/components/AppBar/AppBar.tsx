@@ -2,8 +2,6 @@ import {
   Box, Button,
 } from '@mui/material';
 
-import ControlComponent from '@/components/AppBar/ControllComponent.tsx';
-
 export default function AppBar() {
   const navStyle = {
     my: 2, color: 'primary.main', display: 'block',
@@ -17,6 +15,7 @@ export default function AppBar() {
     display: 'flex', justifyContent: 'space-between',
     alignItems: 'center',
   }}>
+    <Box sx={{width: 'max-content'}}></Box>
     <Box sx={{display: "flex"}}>
       <Button sx={navStyle}>
         Sandbox
@@ -25,8 +24,5 @@ export default function AppBar() {
         Live
       </Button>
     </Box>
-    <Box sx={{width: 'max-content'}}></Box>
-
-    <ControlComponent />
   </Box>;
 }

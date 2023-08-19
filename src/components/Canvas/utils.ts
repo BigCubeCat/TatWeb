@@ -9,6 +9,7 @@ export function genRandomTree(N = 300): TTree {
       links: [],
       value: {
         id: i,
+        dnsId: i,
         type: !i ? 'finish' : 'dns',
         title: 'ДНС-' + i,
         status: {
