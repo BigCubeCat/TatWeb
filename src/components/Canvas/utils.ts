@@ -9,7 +9,7 @@ export function genRandomTree(N = 300): TTree {
       links: [],
       value: {
         type: !i ? 'finish' : 'dns',
-        title: '' + Math.round(Math.random() * 10),
+        title: 'ДНС-' + i,
       },
     });
   }

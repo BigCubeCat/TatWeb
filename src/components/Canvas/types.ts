@@ -1,11 +1,8 @@
-import {StationType} from '@/engine/types.ts';
+import {TopoNode} from '@/engine/types.ts';
 
 export type TNode = {
   id: number;
-  value: {
-    type: StationType,
-    title: string
-  };
+  value: TopoNode;
   neighbors: TNode[];
   links: TLink[];
 };
