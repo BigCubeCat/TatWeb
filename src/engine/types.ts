@@ -1,6 +1,7 @@
 export type StationType = 'dns' | 'finish' | 'node'
 export type TopoNode = {
   id: number;
+  title: string;
   type: StationType;
   status: {
     size: number;
@@ -18,15 +19,10 @@ export type TopoLink = {
   bandwidth: number;
 }
 
-interface ICallbackProp {
-  size: number;
-  content: number;
-  input: number;
-}
-
 export type THook = {
   listenId: number;
-  sign: "<" | ">";
+  sign: "<" | ">" | "~";
+  interval: number;
   count: number;
   output: number;
 }

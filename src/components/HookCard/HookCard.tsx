@@ -10,15 +10,17 @@ import {setHook} from '@/store/graphSlice/graphStore.ts';
 interface IProps {
   dnsId: number;
   value: number;
-  sign: string;
+  sign: '>' | '<' | '~';
   output: number;
-};
+}
+
 export default function HookCard(props: IProps) {
   const dispatch = useAppDispatch();
 
-  const [sign, setSign] = useState(props.sign);
+  const [sign, setSign] = useState<'>' | '<' | '~'>(props.sign);
   const [value, setValue] = useState(0);
   const [output, setOutput] = useState(0);
+  const [interval, setInt] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setValue(Number(e.target.value));
@@ -27,20 +29,26 @@ export default function HookCard(props: IProps) {
     setOutput(Number(e.target.value));
   };
 
+  const handleChangeInt = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setInt(Number(e.target.value));
+  };
+
   const handleClick = () => {
+    console.log(sign);
     dispatch(setHook({
       id: props.dnsId,
       hook: {
         listenId: props.dnsId,
-        sign: (sign == 'больше' ? '>' : '<'),
+        sign: sign,
         count: value,
         output: output,
+        interval: interval,
       },
     }));
   };
 
   return (
-    <Card sx={{minWidth: 160, m: 2, p: 2}}>
+    <Card sx={{minWidth: 200, m: 2, p: 2}}>
       <CardMedia>
         <Box sx={{width: '100%', marginBottom: 2}}>
           <Typography variant={'h6'}>
@@ -50,11 +58,21 @@ export default function HookCard(props: IProps) {
       </CardMedia>
       <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <CardSelect
-          label={'знак'}
           setState={setSign}
           state={sign}
-          variants={['больше', 'меньше']}
         />
+        {(sign === '~') &&
+          <TextField
+            fullWidth
+            type='number'
+            size='small'
+            label='интервал'
+            sx={{marginBottom: 2}}
+            inputProps={{min: 0, max: 1000}}
+            value={interval}
+            onChange={handleChangeInt}
+          />
+        }
         <TextField
           fullWidth
           type='number'

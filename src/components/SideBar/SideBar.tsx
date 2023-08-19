@@ -17,7 +17,7 @@ export default function SideBar() {
       <HookCard
         dnsId={graphSlice.selectedNodeId}
         value={100}
-        sign={'больше'}
+        sign={'>'}
         output={100}
       />
     </Box>
