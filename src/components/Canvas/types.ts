@@ -1,4 +1,4 @@
-import {TopoNode} from '@/engine/types.ts';
+import {TopoNode, TopoLink} from '@/engine/types.ts';
 
 export type TNode = {
   id: number;
@@ -17,3 +17,21 @@ export type TTree = {
   nodes: TNode[];
   links: TLink[];
 };
+
+
+export const generateTNode = (node: TopoNode): TNode => {
+  return {
+    id: node.id,
+    value: node,
+    neighbors: [],
+    links: [],
+  };
+};
+
+export const generateTLink = (link: TopoLink): TLink => {
+  return {
+    source: link.from,
+    target: link.to,
+    value: Math.round(link.bandwidth / 10000),
+  }
+}
