@@ -43,6 +43,7 @@ export const graphSlice = createSlice({
     },
     setStep: (state, action: PayloadAction<number>) => {
       state.currentStep = action.payload % state.countSteps;
+      console.log(state.currentStep)
     },
     setRequests: (state, action: PayloadAction<TRequest[]>) => {
       state.countSteps = action.payload.length;

@@ -6,7 +6,7 @@ export const RECT = {
 
 export const CONFIG = {
   theme: {
-    bgColor: 'aliceblue',
+    bgColor: '#e7e7e8',
     mainColor: 'gray',
     textColor: 'black',
     primaryColor: 'red',
