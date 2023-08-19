@@ -1,10 +1,12 @@
 import {THook, TopoLink, TopoNode} from '@/engine/types.ts';
+import * as wasm from "@/pkg/todo_wasm"
 
 export default class Engine {
   nodes: TopoNode[];
   links: TopoLink[];
   hooks: THook[];
   history: TopoNode[][];
+  tp: object;
 
   constructor(nodes: TopoNode[], links: TopoLink[], hooks: THook[]) {
     this.nodes = nodes;
@@ -12,6 +14,29 @@ export default class Engine {
     this.hooks = [];
     this.history = [];
     hooks.forEach(hook => this.hooks[hook.listenId] = hook);
+
+    this.tp = {
+      capacity: {
+        value: 20, filled: 10
+      },
+      incoming_dnses: [
+        {
+          id: 1,
+          capacity: {
+            value: 10, filled: 3
+          },
+          incoming_dnses: [],
+          out_pipes: [
+            {
+              capacity: {
+                value: 7,
+                filled: 0
+              }
+            }
+          ]
+        }
+      ]
+    }
   }
 
   Update() {
@@ -20,8 +45,13 @@ export default class Engine {
     const freeForBalance = this.useHooks();
     console.log(freeForBalance)
     // check simulation
-    // TODO
+    wasm.init_tp(JSON.stringify(this.tp));
+    console.log(wasm.update(JSON.stringify([{
+      id: 1, in: 5, out: 7
+    }])));
+    console.log(wasm.dump());
     // if overload, balance:
+
   }
 
   useHooks() {
