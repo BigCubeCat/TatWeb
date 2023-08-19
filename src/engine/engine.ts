@@ -5,6 +5,7 @@ export default class Engine {
   links: TopoLink[];
   hooks: THook[];
   history: TopoNode[][];
+
   constructor(nodes: TopoNode[], links: TopoLink[], hooks: THook[]) {
     this.nodes = nodes;
     this.links = links;
@@ -17,6 +18,7 @@ export default class Engine {
     this.history.push([...this.nodes]);
     // use Hooks
     const freeForBalance = this.useHooks();
+    console.log(freeForBalance)
     // check simulation
     // TODO
     // if overload, balance:
@@ -27,7 +29,7 @@ export default class Engine {
     this.nodes.forEach((node, index) => {
       const hook = this.hooks[node.id];
       if (hook.listenId === index) {
-        hook.callback(node.status);
+//        hook.callback(node.status);
       } else {
         freeForBalance.push(node);
       }
@@ -38,6 +40,7 @@ export default class Engine {
   addHook(hook: THook) {
     this.hooks.push(hook);
   }
+
   setHooks(hooks: THook[]) {
     this.hooks = hooks;
   }
@@ -47,10 +50,11 @@ export default class Engine {
     this.links = props.links;
     this.hooks = props.hooks;
   }
+
   Save() {
     return {
       nodes: this.nodes,
-      links: this.links
-    }
+      links: this.links,
+    };
   }
 }

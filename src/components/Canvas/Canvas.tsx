@@ -7,13 +7,16 @@ import {CONFIG, RECT} from '@/components/Canvas/const.ts';
 import {TLink, TNode} from '@/components/Canvas/types.ts';
 import {renderNode} from '@/components/Canvas/CanvasNode.ts';
 import {genRandomTree, normalizeData} from '@/components/Canvas/utils.ts';
+import {useAppDispatch} from '@/store/hooks.ts';
+import {setSelected} from '@/store/graphSlice/graphStore.ts';
 
 
 const Canvas = () => {
+  const dispatch = useAppDispatch();
   const fgRef = useRef();
   const data = useMemo(() => {
     const gData = genRandomTree(10);
-    normalizeData(gData)
+    normalizeData(gData);
     return gData;
   }, []);
 
@@ -35,8 +38,11 @@ const Canvas = () => {
       node.links.forEach((link: TLink) => highlightLinks.add(link));
     }
 
-    setHoverNode(node || null);
     updateHighlight();
+  };
+  const handleNodeClick = (node: any) => {
+    setHoverNode(node || null);
+    dispatch(setSelected(data.nodes[node.id].id));
   };
 
   const handleLinkHover = (link: any) => {
@@ -81,6 +87,8 @@ const Canvas = () => {
         node: data.nodes[node.id],
       }, node, ctx)}
       // handle events
+      onNodeClick={handleNodeClick}
+      onNodeDrag={handleNodeClick}
       onNodeHover={handleNodeHover}
       onLinkHover={handleLinkHover}
       // Fix node position after drag

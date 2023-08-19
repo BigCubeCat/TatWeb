@@ -9,7 +9,7 @@ export const CONFIG = {
     bgColor: 'aliceblue',
     mainColor: 'gray',
     textColor: 'black',
-    primaryColor: 'lime',
+    primaryColor: 'red',
     secondaryColor: 'orange',
   },
   graph: {

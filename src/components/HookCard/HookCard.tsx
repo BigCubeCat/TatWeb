@@ -1,9 +1,11 @@
 import {
-  Card, Typography, Box, TextField, CardMedia,
+  Card, Typography, Box, TextField, CardMedia, Button,
 } from '@mui/material';
 import React, {useState} from 'react';
 
 import CardSelect from '@/components/HookCard/CardSelect.tsx';
+import {useAppDispatch} from '@/store/hooks.ts';
+import {setHook} from '@/store/graphSlice/graphStore.ts';
 
 interface IProps {
   dnsId: number;
@@ -12,6 +14,8 @@ interface IProps {
   output: number;
 };
 export default function HookCard(props: IProps) {
+  const dispatch = useAppDispatch();
+
   const [sign, setSign] = useState(props.sign);
   const [value, setValue] = useState(0);
   const [output, setOutput] = useState(0);
@@ -23,7 +27,17 @@ export default function HookCard(props: IProps) {
     setOutput(Number(e.target.value));
   };
 
-  console.log(sign);
+  const handleClick = () => {
+    dispatch(setHook({
+      id: props.dnsId,
+      hook: {
+        listenId: props.dnsId,
+        sign: (sign == 'больше' ? '>' : '<'),
+        count: value,
+        output: output,
+      },
+    }));
+  };
 
   return (
     <Card sx={{minWidth: 160, m: 2, p: 2}}>
@@ -34,7 +48,7 @@ export default function HookCard(props: IProps) {
           </Typography>
         </Box>
       </CardMedia>
-      <Box sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <CardSelect
           label={'знак'}
           setState={setSign}
@@ -61,6 +75,11 @@ export default function HookCard(props: IProps) {
           value={output}
           onChange={handleOut}
         />
+        <Button
+          variant={'contained'}
+          fullWidth
+          onClick={() => handleClick()}
+        >Задать условия</Button>
       </Box>
     </Card>
   );
