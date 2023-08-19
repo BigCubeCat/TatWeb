@@ -18,7 +18,6 @@ export type TTree = {
   links: TLink[];
 };
 
-
 export const generateTNode = (node: TopoNode): TNode => {
   return {
     id: node.id,
@@ -33,5 +32,5 @@ export const generateTLink = (link: TopoLink): TLink => {
     source: link.from,
     target: link.to,
     value: Math.round(link.bandwidth / 10000),
-  }
-}
+  };
+};

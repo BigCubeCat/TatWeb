@@ -3,7 +3,7 @@ import UploadIcon from '@mui/icons-material/Upload';
 import React from 'react';
 
 export default function UploadFileButton(props: {
-  setState: React.Dispatch<React.SetStateAction<string>>;
+  setState: (state: string) => void;
 }) {
   const showFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e);
@@ -21,10 +21,10 @@ export default function UploadFileButton(props: {
     <Button
       variant="contained"
       component="label"
-      startIcon={<UploadIcon />}
-      sx={{width: 120}}
+      endIcon={<UploadIcon />}
+      sx={{width: 80}}
     >
-      Upload
+      Load
       <input type="file" onChange={(e) => showFile(e)} hidden />
     </Button>
   );

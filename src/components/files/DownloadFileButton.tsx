@@ -19,10 +19,10 @@ export default function DownloadFileButton(props: {
     <Button
       variant={'contained'}
       onClick={downloadTxtFile}
-      startIcon={<DownloadIcon />}
-      sx={{width: 120}}
+      endIcon={<DownloadIcon />}
+      sx={{width: 80}}
     >
-      Download
+      Save
     </Button>
   );
 }

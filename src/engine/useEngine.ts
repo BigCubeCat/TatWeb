@@ -20,7 +20,7 @@ export const defaultEngine: TEngine = {
   signalHooks: [],
 };
 
-type TStatus = 'waiting' | 'ok' | 'invalid engine' | 'invalid requests'
+type TStatus = 'waiting' | 'ok' | 'invalid engine' | 'invalid requests';
 
 export default function useEngine() {
   const dispatch = useAppDispatch();

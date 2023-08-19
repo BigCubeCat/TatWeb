@@ -13,7 +13,7 @@ export interface GraphState {
 }
 
 const initialState: GraphState = {
-  selectedNodeId: 0,
+  selectedNodeId: -1,
   currentStep: 0,
   countSteps: 10,
   engine: defaultEngine,
@@ -45,19 +45,14 @@ export const graphSlice = createSlice({
       state.reqs = action.payload;
       // update engine history
       state.engine.history = [];
-      state.reqs.forEach(req => {
+      state.reqs.forEach((req) => {
         updateEngine(state.engine, req);
       });
     },
   },
 });
 
-export const {
-  setSelected, setHook,
-  setEngine,
-  setStep,
-  setHooks,
-  setRequests,
-} = graphSlice.actions;
+export const {setSelected, setHook, setEngine, setStep, setHooks, setRequests} =
+  graphSlice.actions;
 export const selectGraphSlice = (state: RootState) => state.graph;
 export default graphSlice.reducer;

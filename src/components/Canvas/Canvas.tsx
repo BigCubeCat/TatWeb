@@ -2,7 +2,12 @@ import {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {ForceGraph2D} from 'react-force-graph';
 
 import {CONFIG, RECT} from '@/components/Canvas/const.ts';
-import {generateTLink, generateTNode, TLink, TNode, TTree} from '@/components/Canvas/types.ts';
+import {
+  generateTLink,
+  generateTNode,
+  TLink,
+  TNode,
+} from '@/components/Canvas/types.ts';
 import {renderNode} from '@/components/Canvas/CanvasNode.ts';
 import {normalizeData} from '@/components/Canvas/utils.ts';
 import {useAppDispatch, useAppSelector} from '@/store/hooks.ts';
@@ -15,8 +20,8 @@ const Canvas = () => {
   const fgRef = useRef();
   const data = useMemo(() => {
     return normalizeData({
-      nodes: engine.tree.nodes.map(node => generateTNode(node)),
-      links: engine.tree.links.map(link => generateTLink(link)),
+      nodes: engine.tree.nodes.map((node) => generateTNode(node)),
+      links: engine.tree.links.map((link) => generateTLink(link)),
     });
   }, [engine.tree]);
 

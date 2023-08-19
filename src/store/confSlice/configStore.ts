@@ -29,10 +29,6 @@ export const connectionSlice = createSlice({
   },
 });
 
-export const {
-  setTopoFile,
-  setReqsFile,
-  setHooksFile,
-} = connectionSlice.actions;
+export const {setTopoFile, setReqsFile, setHooksFile} = connectionSlice.actions;
 export const selectConfigStore = (state: RootState) => state.config;
 export default connectionSlice.reducer;
