@@ -1,5 +1,9 @@
 import {
-  FormControl, Select, MenuItem, SelectChangeEvent, InputAdornment,
+  FormControl,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  InputAdornment,
 } from '@mui/material';
 import React from 'react';
 
@@ -10,25 +14,21 @@ interface SelectProps {
 
 export default function CardSelect(props: SelectProps) {
   const handleChange = (event: SelectChangeEvent) => {
-    props.setState("" + event.target.value);
+    props.setState('' + event.target.value);
   };
   return (
-    <FormControl
-      fullWidth
-      sx={{marginBottom: 2}}
-    >
+    <FormControl fullWidth sx={{marginBottom: 2}}>
       <Select
         fullWidth
         size={'small'}
         value={props.state}
         onChange={handleChange}
-        startAdornment={<InputAdornment position='start'>Если</InputAdornment>}
+        startAdornment={<InputAdornment position="start">Если</InputAdornment>}
       >
         <MenuItem value={'>'}>больше</MenuItem>
         <MenuItem value={'<'}>меньше</MenuItem>
         <MenuItem value={'~'}>в интервале</MenuItem>
       </Select>
     </FormControl>
-  )
-    ;
+  );
 }

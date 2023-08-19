@@ -1,4 +1,4 @@
-export type StationType = 'dns' | 'finish' | 'node'
+export type StationType = 'dns' | 'finish' | 'node';
 export type TopoNode = {
   id: number;
   dnsId: number;
@@ -9,7 +9,7 @@ export type TopoNode = {
     content: number;
     input: number;
     output: number;
-  }
+  };
 };
 
 export type TopoLink = {
@@ -18,7 +18,7 @@ export type TopoLink = {
   d: number; // Диаметр
   length: number; // длинна
   bandwidth: number;
-}
+};
 
 export type THook = {
   listenId: number;
@@ -26,7 +26,17 @@ export type THook = {
   interval: number;
   count: number;
   output: number;
-}
+};
+
+export type TSignalHook = {
+  listen: string;
+  emitSignal: boolean;
+  emit: string;
+
+  interval: number;
+  count: number;
+  output: number;
+};
 
 export type TTree = {
   nodes: TopoNode[];
@@ -36,11 +46,12 @@ export type TTree = {
 export type TEngine = {
   tree: TTree;
   hooks: THook[];
+  signalHooks: TSignalHook[];
   history: TTree[];
   broken: number[];
 };
 
 export type TRequest = {
-  enters: number[], // Список начальных ДНС
-  loaded: number[],
+  enters: number[]; // Список начальных ДНС
+  loaded: number[];
 };

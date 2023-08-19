@@ -1,6 +1,4 @@
-import {
-  useCallback, useMemo, useState, useEffect, useRef,
-} from 'react';
+import {useCallback, useMemo, useState, useEffect, useRef} from 'react';
 import {ForceGraph2D} from 'react-force-graph';
 
 import {CONFIG, RECT} from '@/components/Canvas/const.ts';
@@ -9,7 +7,6 @@ import {renderNode} from '@/components/Canvas/CanvasNode.ts';
 import {genRandomTree, normalizeData} from '@/components/Canvas/utils.ts';
 import {useAppDispatch} from '@/store/hooks.ts';
 import {setSelected} from '@/store/graphSlice/graphStore.ts';
-
 
 const Canvas = () => {
   const dispatch = useAppDispatch();
@@ -58,16 +55,13 @@ const Canvas = () => {
     updateHighlight();
   };
 
-
   useEffect(() => {
     const fg = fgRef.current;
     // @ts-ignore
     fg.d3Force('link').distance(CONFIG.graph.distance);
   });
 
-  const paintNode = useCallback(
-    renderNode, [hoverNode],
-  );
+  const paintNode = useCallback(renderNode, [hoverNode]);
 
   return (
     <ForceGraph2D
@@ -75,24 +69,28 @@ const Canvas = () => {
       graphData={data}
       nodeRelSize={(RECT.width + RECT.height) / 2}
       autoPauseRedraw={false}
-
       backgroundColor={CONFIG.theme.bgColor}
-
       linkWidth={CONFIG.graph.linkWidth}
-      linkDirectionalParticles={link => link.value}
+      linkDirectionalParticles={(link) => link.value}
       linkDirectionalParticleWidth={CONFIG.graph.linkDirectionalParticleWidth}
-
-      nodeCanvasObject={(node, ctx) => paintNode({
-        highlightLvl: (hoverNode === node) ? 2 : (highlightNodes.has(node)) ? 1 : 0,
-        node: data.nodes[node.id],
-      }, node, ctx)}
+      nodeCanvasObject={(node, ctx) =>
+        paintNode(
+          {
+            highlightLvl:
+              hoverNode === node ? 2 : highlightNodes.has(node) ? 1 : 0,
+            node: data.nodes[node.id],
+          },
+          node,
+          ctx,
+        )
+      }
       // handle events
       onNodeClick={handleNodeClick}
       onNodeDrag={handleNodeClick}
       onNodeHover={handleNodeHover}
       onLinkHover={handleLinkHover}
       // Fix node position after drag
-      onNodeDragEnd={node => {
+      onNodeDragEnd={(node) => {
         node.fx = node.x;
         node.fy = node.y;
         node.fz = node.z;

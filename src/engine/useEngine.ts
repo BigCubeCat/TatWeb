@@ -1,48 +1,45 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 
-import { readEngine, updateEngine, } from '@/engine/engine';
-import { TEngine, THook, TRequest } from '@/engine/types.ts';
+import {readEngine} from '@/engine/engine';
+import {TEngine, TRequest} from '@/engine/types.ts';
+import {useAppDispatch} from '@/store/hooks.ts';
+import {
+  setEngine,
+  setRequests as setReq,
+} from '@/store/graphSlice/graphStore.ts';
 
-interface IProps {
-  hooks: THook[],
-}
-
-const defaultEngine: TEngine = {
+export const defaultEngine: TEngine = {
   tree: {
-    nodes: [], links: [],
+    nodes: [],
+    links: [],
   },
-  hooks: [], history: [], broken: []
+  hooks: [],
+  history: [],
+  broken: [],
+  signalHooks: [],
 };
 
-export default function useEngine(props: IProps) {
-  const [engine, setEngine] = useState<TEngine>(defaultEngine);
+export default function useEngine() {
+  const dispatch = useAppDispatch();
   const [fileContent, setFileContent] = useState('');
   const [requests, setRequests] = useState<TRequest[]>([]);
 
   useEffect(() => {
     if (fileContent) {
       try {
-        setEngine(readEngine(fileContent));
+        dispatch(setEngine(readEngine(fileContent)));
       } catch (e) {
         console.log(e);
       }
     }
-
   }, [fileContent]);
 
   useEffect(() => {
-    engine.hooks = props.hooks;
-  }, [engine, props.hooks]);
-
-  useEffect(() => {
-    requests.forEach(request => {
-      updateEngine(engine, request);
-    })
-  }, [engine, requests]);
+    dispatch(setReq(requests));
+  }, [requests]);
 
   return {
-    engine,
     setFileContent,
-    setRequests
+    setRequests,
   };
 }

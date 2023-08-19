@@ -30,7 +30,8 @@ export function genRandomTree(N = 300): TTree {
       value: Math.round(Math.random() * 10),
     }));
   return {
-    nodes, links,
+    nodes,
+    links,
   };
 }
 

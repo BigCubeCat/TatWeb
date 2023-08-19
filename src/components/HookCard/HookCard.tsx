@@ -1,5 +1,10 @@
 import {
-  Card, Typography, Box, TextField, CardMedia, Button,
+  Card,
+  Typography,
+  Box,
+  TextField,
+  CardMedia,
+  Button,
 } from '@mui/material';
 import React, {useState} from 'react';
 
@@ -22,62 +27,67 @@ export default function HookCard(props: IProps) {
   const [output, setOutput] = useState(0);
   const [interval, setInt] = useState(0);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setValue(Number(e.target.value));
   };
-  const handleOut = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleOut = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setOutput(Number(e.target.value));
   };
 
-  const handleChangeInt = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChangeInt = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setInt(Number(e.target.value));
   };
 
   const handleClick = () => {
     console.log(sign);
-    dispatch(setHook({
-      id: props.dnsId,
-      hook: {
-        listenId: props.dnsId,
-        sign: sign as ('<' | '>' | '~'),
-        count: value,
-        output: output,
-        interval: interval,
-      },
-    }));
+    dispatch(
+      setHook({
+        id: props.dnsId,
+        hook: {
+          listenId: props.dnsId,
+          sign: sign as '<' | '>' | '~',
+          count: value,
+          output: output,
+          interval: interval,
+        },
+      }),
+    );
   };
 
   return (
     <Card sx={{minWidth: 200, m: 2, p: 2}}>
       <CardMedia>
         <Box sx={{width: '100%', marginBottom: 2}}>
-          <Typography variant={'h6'}>
-            ДНС - {props.dnsId}
-          </Typography>
+          <Typography variant={'h6'}>ДНС - {props.dnsId}</Typography>
         </Box>
       </CardMedia>
-      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <CardSelect
-          setState={setSign}
-          state={sign}
-        />
-        {(sign === '~') &&
+      <Box
+        sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}
+      >
+        <CardSelect setState={setSign} state={sign} />
+        {sign === '~' && (
           <TextField
             fullWidth
-            type='number'
-            size='small'
-            label='интервал'
+            type="number"
+            size="small"
+            label="интервал"
             sx={{marginBottom: 2}}
             inputProps={{min: 0, max: 1000}}
             value={interval}
             onChange={handleChangeInt}
           />
-        }
+        )}
         <TextField
           fullWidth
-          type='number'
-          size='small'
-          label='Значение'
+          type="number"
+          size="small"
+          label="Значение"
           sx={{marginBottom: 2}}
           inputProps={{min: 0, max: 1000}}
           value={value}
@@ -85,19 +95,17 @@ export default function HookCard(props: IProps) {
         />
         <TextField
           fullWidth
-          type='number'
-          size='small'
-          label='Разгрузить'
+          type="number"
+          size="small"
+          label="Разгрузить"
           sx={{marginBottom: 2}}
           inputProps={{min: 0, max: 1000}}
           value={output}
           onChange={handleOut}
         />
-        <Button
-          variant={'contained'}
-          fullWidth
-          onClick={() => handleClick()}
-        >Задать условия</Button>
+        <Button variant={'contained'} fullWidth onClick={() => handleClick()}>
+          Задать условия
+        </Button>
       </Box>
     </Card>
   );

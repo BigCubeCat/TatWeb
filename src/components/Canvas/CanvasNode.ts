@@ -2,17 +2,26 @@ import {CONFIG, RECT} from '@/components/Canvas/const.ts';
 import {NodeObject} from 'react-force-graph-2d';
 import {TNode} from '@/components/Canvas/types.ts';
 
-const paintRing = (isMainNode: boolean, node: NodeObject, ctx: CanvasRenderingContext2D) => {
+const paintRing = (
+  isMainNode: boolean,
+  node: NodeObject,
+  ctx: CanvasRenderingContext2D,
+) => {
   // add ring just for highlighted nodes
   ctx.beginPath();
   paintBox(
     node,
-    isMainNode ? CONFIG.theme.primaryColor : CONFIG.theme.secondaryColor, ctx,
+    isMainNode ? CONFIG.theme.primaryColor : CONFIG.theme.secondaryColor,
+    ctx,
   );
   ctx.fill();
 };
 
-const paintBox = (node: NodeObject, color: string, ctx: CanvasRenderingContext2D) => {
+const paintBox = (
+  node: NodeObject,
+  color: string,
+  ctx: CanvasRenderingContext2D,
+) => {
   ctx.fillStyle = color;
   ctx.fillRect(
     (node.x || 0) - RECT.width / 2,
@@ -29,7 +38,12 @@ const paintBox = (node: NodeObject, color: string, ctx: CanvasRenderingContext2D
   );
 };
 
-const paintText = (node: NodeObject, text: string, color: string, ctx: CanvasRenderingContext2D) => {
+const paintText = (
+  node: NodeObject,
+  text: string,
+  color: string,
+  ctx: CanvasRenderingContext2D,
+) => {
   ctx.fillStyle = color;
   ctx.font = '10px Sans-Serif';
   ctx.textAlign = 'center';
@@ -37,7 +51,11 @@ const paintText = (node: NodeObject, text: string, color: string, ctx: CanvasRen
   ctx.fillText(text, node.x || 0, node.y || 0);
 };
 
-const paintNode = (node: NodeObject, color: string, ctx: CanvasRenderingContext2D) => {
+const paintNode = (
+  node: NodeObject,
+  color: string,
+  ctx: CanvasRenderingContext2D,
+) => {
   paintBox(node, color, ctx);
 };
 
@@ -46,7 +64,11 @@ interface IRenderNodeConf {
   node: TNode;
 }
 
-const renderNode = (renderConf: IRenderNodeConf, node: NodeObject, ctx: CanvasRenderingContext2D) => {
+const renderNode = (
+  renderConf: IRenderNodeConf,
+  node: NodeObject,
+  ctx: CanvasRenderingContext2D,
+) => {
   // add ring just for highlighted nodes
   ctx.beginPath();
   paintNode(node, CONFIG.theme.mainColor, ctx);

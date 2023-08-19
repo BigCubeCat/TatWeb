@@ -16,5 +16,5 @@ export const CONFIG = {
     linkWidth: 10,
     linkDirectionalParticleWidth: 8,
     distance: 200,
-  }
+  },
 };
