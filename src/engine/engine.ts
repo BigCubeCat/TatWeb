@@ -44,11 +44,6 @@ export default class Engine {
     const freeForBalance = this.useHooks();
     console.log(freeForBalance)
     // check simulation
-    wasm.init_tp(JSON.stringify(this.tp));
-    console.log(wasm.update(JSON.stringify([{
-      id: 1, in: 5, out: 7
-    }])));
-    console.log(wasm.dump());
     // if overload, balance:
 
   }
