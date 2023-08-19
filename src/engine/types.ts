@@ -2,10 +2,12 @@ export type StationType = "dns" | "finish" | "node"
 export type TopoNode = {
   id: number;
   type: StationType;
-  size: number;
-  content: number;
-  input: number;
-  output: number;
+  status: {
+    size: number;
+    content: number;
+    input: number;
+    output: number;
+  }
 };
 
 export type TopoLink = {
@@ -14,4 +16,15 @@ export type TopoLink = {
   d: number;
   length: number;
   bandwidth: number;
+}
+
+interface ICallbackProp {
+  size: number;
+  content: number;
+  input: number;
+}
+
+export type THook = {
+  listenId: number;
+  callback: (props: ICallbackProp) => number; // return new output
 }
