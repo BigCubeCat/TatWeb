@@ -2,6 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {RootState} from '../store';
 import {TEngine, THook, TRequest} from '@/engine/types.ts';
 import {defaultEngine} from '@/engine/useEngine.ts';
+import {updateEngine} from '@/engine/engine.ts';
 
 export interface GraphState {
   selectedNodeId: number;
@@ -43,11 +44,20 @@ export const graphSlice = createSlice({
       state.currentStep = 0;
       state.reqs = action.payload;
       // update engine history
+      state.engine.history = [];
+      state.reqs.forEach(req => {
+        updateEngine(state.engine, req);
+      });
     },
   },
 });
 
-export const {setSelected, setHook, setEngine, setStep, setHooks, setRequests} =
-  graphSlice.actions;
+export const {
+  setSelected, setHook,
+  setEngine,
+  setStep,
+  setHooks,
+  setRequests,
+} = graphSlice.actions;
 export const selectGraphSlice = (state: RootState) => state.graph;
 export default graphSlice.reducer;

@@ -1,39 +1,4 @@
-import {TLink, TNode, TTree} from '@/components/Canvas/types.ts';
-
-export function genRandomTree(N = 300): TTree {
-  const nodes: TNode[] = [];
-  for (let i = 0; i < N; ++i) {
-    nodes.push({
-      id: i,
-      neighbors: [],
-      links: [],
-      value: {
-        id: i,
-        dnsId: i,
-        type: !i ? 'finish' : 'dns',
-        title: 'ДНС-' + i,
-        status: {
-          size: 0,
-          content: 0,
-          input: 0,
-          output: 0,
-        },
-      },
-    });
-  }
-
-  const links: TLink[] = [...Array(N).keys()]
-    .filter((id) => id)
-    .map((id) => ({
-      source: id,
-      target: Math.round(Math.random() * (id - 1)),
-      value: Math.round(Math.random() * 10),
-    }));
-  return {
-    nodes,
-    links,
-  };
-}
+import {TLink, TTree} from '@/components/Canvas/types.ts';
 
 export function normalizeData(tree: TTree): TTree {
   // cross-link node objects
